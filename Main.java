@@ -95,8 +95,13 @@ public class Main {
 		api.switchToDc(config.getThisDc());
 		System.out.println("1");
 
-        String phone = "79039502758"; // I have tested app with the phone without plus too
- 
+        
+        System.out.print("input phone: ");
+		byte[] buf=new byte[10240];
+		int cnt=System.in.read(buf, 0, 10240);
+		String phone = new String(buf,0,cnt).trim();
+		
+		
         TLRequestAuthSendCode m= new TLRequestAuthSendCode();
         m.setPhoneNumber(phone);
         m.setApiHash("62155226f23b8565aa3aaa0fa68df878");
@@ -129,8 +134,8 @@ public class Main {
         System.out.println("getPrimaryDc  "+api.getState().getPrimaryDc());
         
         System.out.print("input sms code: ");
-		byte[] buf=new byte[10240];
-		int cnt=System.in.read(buf, 0, 10240);
+		buf=new byte[10240];
+		cnt=System.in.read(buf, 0, 10240);
 		String code=new String(buf,0,cnt).trim();
 		System.out.println("My access code: '"+code+"'");
 
@@ -184,9 +189,13 @@ public class Main {
 		TLBool result=api.doRpcCall(invites);
 		System.out.println(result);*/
 		
+        System.out.print("input contact seach: ");
+		buf=new byte[10240];
+		cnt=System.in.read(buf, 0, 10240);
+		String seachstr=new String(buf,0,cnt).trim();
         
         TLRequestContactsSearch cntcs=new TLRequestContactsSearch();
-        cntcs.setQ("gdfg");
+        cntcs.setQ(seachstr);
         TLContactsFound rescnts=api.doRpcCallSide(cntcs);
         System.out.println("contacts "+rescnts.getUsers().size());
         
